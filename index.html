@@ -1,14 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tide Lord</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tide Lord - Track Tides with Ease</title>
+    <meta name="description" content="Track tide patterns across NOAA stations with clean charts, informative widgets, and useful predictions.">
+    <link rel="icon" type="image/png" href="appicon.png">
+    <link rel="apple-touch-icon" href="appicon.png">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Tide Lord</h1>
-  <p>A tide app for all you core lords out there. Pay once. No subscriptions, no ads, no tracking. Just clean tides and full send ownership.</p>
-  <a href="privacy.html">Privacy Policy</a>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="appicon.png" alt="Tide Lord App Icon" class="app-icon">
+                <h1>Tide Lord</h1>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h2>Track Tides with Ease</h2>
+                <p class="tagline">Monitor tide patterns across NOAA stations with beautiful charts, widgets, and real-time predictions.</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary">Download on App Store</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <h3>Features</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h4>Interactive Tide Charts</h4>
+                        <p>View detailed tide predictions with smooth, interactive graphs showing high and low tides throughout the day.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📍</div>
+                        <h4>Favorite NOAA Tide Stations</h4>
+                        <p>Access accurate data from thousands of NOAA tide prediction stations across the United States and save your favorites.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h4>Home Screen Widgets</h4>
+                        <p>Stay informed with quick access to widgets on your home screen with graphs and tables.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="screenshots">
+            <div class="container">
+                <h3>Gallery</h3>
+                <div class="carousel">
+                    <button class="carousel-btn carousel-btn-prev" aria-label="Previous screenshot">&larr;</button>
+                    <div class="carousel-container">
+                        <div class="carousel-track">
+                            <div class="carousel-slide">
+                                <img src="images/my-tides-large.png" alt="My Tides - Save your favorite tide stations">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/tide-station-detail-large.png" alt="Tide Station Detail - View detailed tide predictions">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/widgets-large.png" alt="Home Screen Widgets - Beautiful tide widgets">
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-btn carousel-btn-next" aria-label="Next screenshot">&rarr;</button>
+                </div>
+                <div class="carousel-dots">
+                    <button class="carousel-dot active" aria-label="Go to screenshot 1"></button>
+                    <button class="carousel-dot" aria-label="Go to screenshot 2"></button>
+                    <button class="carousel-dot" aria-label="Go to screenshot 3"></button>
+                </div>
+            </div>
+        </section>
+
+        <section class="about">
+            <div class="container">
+                <h3>About</h3>
+                <p>Tide Lord provides accurate tide predictions powered by NOAA data in easy-to-use iOS interface..</p>
+                <p>Built for iOS with support for reference and subordinate tide stations, offering both detailed predictions and sinusoidal approximations based on high/low tide data.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="copyright-year"></span> Tide Lord. Tide data provided by NOAA.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Copyright year
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+        // Carousel functionality
+        const track = document.querySelector('.carousel-track');
+        const slides = Array.from(track.children);
+        const nextButton = document.querySelector('.carousel-btn-next');
+        const prevButton = document.querySelector('.carousel-btn-prev');
+        const dotsContainer = document.querySelector('.carousel-dots');
+        const dots = Array.from(dotsContainer.children);
+
+        let currentIndex = 0;
+
+        function updateCarousel() {
+            const slideWidth = slides[0].getBoundingClientRect().width;
+            track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+
+            // Update dots
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[currentIndex].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % slides.length;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            updateCarousel();
+        }
+
+        nextButton.addEventListener('click', nextSlide);
+        prevButton.addEventListener('click', prevSlide);
+
+        // Dot navigation
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentIndex = index;
+                updateCarousel();
+            });
+        });
+
+        // Update carousel on window resize
+        window.addEventListener('resize', updateCarousel);
+
+        // Auto-play
+        setInterval(nextSlide, 5000);
+    </script>
 </body>
 </html>
